@@ -126,6 +126,9 @@
             border-radius: 10px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: auto;
         }
         
         .banner-section {
@@ -163,6 +166,9 @@
         
         .content-section {
             padding: 40px 30px;
+            flex: 1;
+            overflow-y: auto;
+            max-height: 500px;
         }
         
         .content-section h2 {
@@ -172,82 +178,12 @@
             letter-spacing: 1px;
         }
         
-        .text-input-area {
-            width: 100%;
-            min-height: 300px;
-            padding: 15px;
+        .content-text {
             font-size: 1em;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            resize: vertical;
-            transition: border-color 0.3s;
-        }
-        
-        .text-input-area:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
-        }
-        
-        .button-group {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        
-        .btn {
-            padding: 12px 25px;
-            font-size: 1em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-        }
-        
-        .btn-save {
-            background-color: #667eea;
-            color: white;
-        }
-        
-        .btn-save:hover {
-            background-color: #5568d3;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-        
-        .btn-clear {
-            background-color: #ddd;
+            line-height: 1.6;
             color: #333;
-        }
-        
-        .btn-clear:hover {
-            background-color: #bbb;
-            transform: translateY(-2px);
-        }
-        
-        .save-message {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #d4edda;
-            color: #155724;
-            border-radius: 5px;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .save-message.show {
-            display: block;
-            animation: fadeInOut 3s;
-        }
-        
-        @keyframes fadeInOut {
-            0% { opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { opacity: 0; }
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
         
         @media (max-width: 600px) {
@@ -257,10 +193,7 @@
             
             .content-section {
                 padding: 20px 15px;
-            }
-            
-            .text-input-area {
-                min-height: 200px;
+                max-height: 400px;
             }
         }
     </style>
@@ -297,22 +230,12 @@
                 >
             </div>
             
-            <!-- Content Section with Text Area -->
+            <!-- Content Section with Static Text -->
             <div class="content-section">
-                <h2>Content</h2>
-                <textarea 
-                    class="text-input-area" 
-                    id="contentArea" 
-                    placeholder="Enter your content here..."
-                ></textarea>
-                
-                <div class="button-group">
-                    <button class="btn btn-save" id="saveBtn">Save Content</button>
-                    <button class="btn btn-clear" id="clearBtn">Clear</button>
-                </div>
-                
-                <div class="save-message" id="saveMessage">
-                    ✓ Content saved successfully!
+                <div class="content-text" id="contentText">
+Welcome to our Introduction page. Edit this text directly in the introduction.html file. Replace this content with your own text. The text box will automatically scroll if the content is longer than the available space.
+
+You can add multiple paragraphs, and the scrollbar will appear on the right side when needed.
                 </div>
             </div>
         </div>
@@ -343,46 +266,6 @@
         
         bannerInput.addEventListener('input', () => {
             bannerTitle.textContent = bannerInput.value || 'Introduction';
-        });
-        
-        // Save Content
-        const contentArea = document.getElementById('contentArea');
-        const saveBtn = document.getElementById('saveBtn');
-        const clearBtn = document.getElementById('clearBtn');
-        const saveMessage = document.getElementById('saveMessage');
-        
-        // Load saved content from browser storage
-        window.addEventListener('load', () => {
-            const savedBanner = localStorage.getItem('bannerTitle');
-            const savedContent = localStorage.getItem('pageContent');
-            
-            if (savedBanner) {
-                bannerInput.value = savedBanner;
-                bannerTitle.textContent = savedBanner;
-            }
-            if (savedContent) {
-                contentArea.value = savedContent;
-            }
-        });
-        
-        saveBtn.addEventListener('click', () => {
-            localStorage.setItem('bannerTitle', bannerInput.value);
-            localStorage.setItem('pageContent', contentArea.value);
-            
-            saveMessage.classList.add('show');
-            setTimeout(() => {
-                saveMessage.classList.remove('show');
-            }, 3000);
-        });
-        
-        clearBtn.addEventListener('click', () => {
-            if (confirm('Are you sure you want to clear all content?')) {
-                contentArea.value = '';
-                bannerInput.value = 'Introduction';
-                bannerTitle.textContent = 'Introduction';
-                localStorage.removeItem('pageContent');
-                localStorage.removeItem('bannerTitle');
-            }
         });
     </script>
 </body>
