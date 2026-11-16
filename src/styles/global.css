@@ -122,6 +122,17 @@ a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
 .pill { display: inline-flex; align-items: center; gap: 0.35rem; font: 600 0.72rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.06em; padding: 0.35rem 0.55rem; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); width: fit-content; }
 .pill.public { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 40%, transparent); }
 .pill.private { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 40%, transparent); }
+.hero .lead a { color: var(--text); text-decoration-color: var(--accent); }
+.stats { display: flex; flex-wrap: wrap; gap: 2rem; margin: 2.2rem 0 0; }
+.stats div { display: flex; flex-direction: column-reverse; }
+.stats dt { color: var(--muted); font-size: 0.85rem; }
+.stats dd { margin: 0; font: 700 1.8rem/1.1 var(--font); }
+.areas { grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); }
+.card.area h3 a { color: var(--text); text-decoration: none; }
+.card.area h3 a:hover { color: var(--accent); }
+.proj-list { list-style: none; margin: 0.2rem 0 0.4rem; padding: 0; display: flex; flex-direction: column; gap: 0.35rem; }
+.proj-list li { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.proj-list a { font-weight: 600; }
 .pill.wip { color: var(--accent-ink); background: var(--warn); border-color: var(--warn); }
 .pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .side .refs li { display: flex; flex-direction: column; gap: 0.1rem; margin-bottom: 0.35rem; }

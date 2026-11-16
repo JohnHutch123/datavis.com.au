@@ -8,9 +8,9 @@ export const site = {
   legalName: 'Datavis Pty Ltd',
   // Fill in your ABN; leave '' to hide it.
   abn: '80 094 434 849',
-  tagline: 'Graphics, data visualisation and developer tools',
+  tagline: 'Graphics, simulation and engineering software',
   description:
-    'Datavis Pty Ltd builds Vulkan graphics components for Delphi, data visualisation software and mobile apps.',
+    'Datavis Pty Ltd builds Vulkan graphics components for Delphi, MuJoCo simulation and robot skill tools, motorsport apps and data tools, and drill and blast software.',
   url: 'https://www.datavis.com.au',
   country: 'Australia',
   // Suggested: create support@ and privacy@ aliases that forward to your inbox.

@@ -96,8 +96,8 @@ await (await squareIcon(48, 4)).toFile(OUT('favicon.png'));
 console.log('images/logo-512.png 512x512, favicon.png 48x48');
 
 // Link-preview card.
-const lines = ['Vulkan graphics for Delphi,', 'data visualisation and apps'];
-const chips = ['Vulkan', 'Delphi', 'Object Pascal', 'GitHub', 'Claude'];
+const lines = ['Graphics, simulation and', 'engineering software'];
+const chips = ['Vulkan', 'MuJoCo', 'Delphi', 'Robotics', 'Motorsport', 'Mining'];
 const font = "'Segoe UI', 'Helvetica Neue', Arial, sans-serif";
 let x = 96;
 const chipSvg = chips

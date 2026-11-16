@@ -1,30 +1,44 @@
 ---
 import Base from '../layouts/Base.astro';
-import ProjectCard from '../components/ProjectCard.astro';
 import TechBadges from '../components/TechBadges.astro';
 import { site } from '../site.config';
-import { getGroups, getProjects, getApps, groupUrl, appUrl } from '../lib/content';
+import { getGroups, getProjects, getApps, groupUrl, projectUrl, appUrl } from '../lib/content';
 
 const groups = await getGroups();
 const projects = await getProjects();
 const apps = await getApps();
-const featured = projects.slice(0, 3);
+const openSource = projects.filter((p) => p.data.visibility === 'public').length;
+
+// One line per area for the hero, linking to each group. Edit the wording here.
+const areaBlurb: Record<string, string> = {
+  vulkan: 'Vulkan 3D graphics components for Delphi',
+  robotics: 'physics simulation and portable robot skills',
+  motorsport: 'apps and data tools for racers',
+  mining: 'drill and blast design for mines and quarries',
+};
 ---
 <Base title={site.name}>
   <section class="hero">
     <div class="wrap">
       <span class="eyebrow">{site.legalName}</span>
-      <h1>Fast <span class="grad">Vulkan graphics</span> for Delphi, and the tools to build with it.</h1>
+      <h1>Software for <span class="grad">graphics, simulation</span> and the real world.</h1>
       <p class="lead">
-        Datavis builds component packages, data visualisation software and apps. We publish open source
-        where we can, license commercial extras where it makes sense, and document all of it so you can
-        get from a blank form to a working 3D view quickly.
+        Datavis builds developer tools, engineering software and apps, covering
+        {groups.map((g, i) => (
+          <>{i > 0 && (i === groups.length - 1 ? ' and ' : ', ')}<a href={groupUrl(g.id)}>{areaBlurb[g.id] ?? g.data.title.toLowerCase()}</a></>
+        ))}.
+        We publish open source where we can and document everything so you can put it to work.
       </p>
       <div class="actions">
         <a class="btn primary" href="/projects/">Explore projects</a>
         <a class="btn" href={site.github.url} rel="noopener">GitHub</a>
         <a class="btn" href="/contact/">Talk to us</a>
       </div>
+      <dl class="stats">
+        <div><dt>Projects</dt><dd>{projects.length}</dd></div>
+        <div><dt>Open source</dt><dd>{openSource}</dd></div>
+        <div><dt>Areas</dt><dd>{groups.length}</dd></div>
+      </dl>
     </div>
   </section>
 
@@ -32,13 +46,31 @@ const featured = projects.slice(0, 3);
     <div class="wrap">
       <div class="section-head">
         <div>
-          <span class="eyebrow">Projects</span>
-          <h2>What we're working on</h2>
+          <span class="eyebrow">Areas</span>
+          <h2>What we work on</h2>
         </div>
         <a href="/projects/">All projects →</a>
       </div>
-      <div class="grid">
-        {featured.map((p) => <ProjectCard project={p} />)}
+      <div class="grid areas">
+        {groups.map((g) => {
+          const items = projects.filter((p) => p.data.group.id === g.id);
+          return (
+            <article class="card area">
+              <h3><a href={groupUrl(g.id)}>{g.data.title}</a></h3>
+              <p>{g.data.summary}</p>
+              <ul class="proj-list">
+                {items.map((p) => (
+                  <li>
+                    <a href={projectUrl(p)}>{p.data.title}</a>
+                    {p.data.status === 'wip' && <span class="pill wip" title="Work in progress">WIP</span>}
+                    {p.data.visibility === 'private' && <span class="pill private">Commercial</span>}
+                  </li>
+                ))}
+              </ul>
+              <TechBadges items={g.data.tech.slice(0, 4)} />
+            </article>
+          );
+        })}
       </div>
     </div>
   </section>
@@ -46,60 +78,53 @@ const featured = projects.slice(0, 3);
   <section class="section alt">
     <div class="wrap">
       <span class="eyebrow">How we work</span>
-      <h2>Open core, commercial extras, documented throughout</h2>
+      <h2>Open where we can, commercial where it counts</h2>
       <div class="grid">
         <div class="card">
-          <h3>Learn</h3>
-          <p>Step-by-step guides, component references and sample projects for every package, written for working Delphi developers.</p>
+          <h3>Open source</h3>
+          <p>Libraries like Vulkan_Package, PasMuJoCo, RaceBox Data and the Robot Skills format are free on GitHub under permissive licences.</p>
         </div>
         <div class="card">
-          <h3>Build</h3>
-          <p>Drop-in components that handle the Vulkan boilerplate: instance, devices, swap chains, pipelines, scenes, cameras and picking.</p>
+          <h3>Commercial</h3>
+          <p>Products that need sustained investment, such as Vulkan_Package_PRO and Drill and Blast, are licensed commercially and fund the open work.</p>
         </div>
         <div class="card">
-          <h3>Ship</h3>
-          <p>Open source under the zlib licence for the core, with commercial PRO packages when you need CAD formats, editing tools and more.</p>
+          <h3>Documented</h3>
+          <p>Every project has guides and references, and every app has clear support and privacy pages. Work in progress is labelled as such.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap">
-      <span class="eyebrow">Areas</span>
-      <h2>Project groups</h2>
-      <div class="grid">
-        {groups.map((g) => (
-          <a class="card" href={groupUrl(g.id)}>
-            <h3>{g.data.title}</h3>
-            <p>{g.data.summary}</p>
-            <span class="more">Open group →</span>
-          </a>
-        ))}
+  {apps.length > 0 && (
+    <section class="section">
+      <div class="wrap">
+        <span class="eyebrow">Apps</span>
+        <h2>Apps</h2>
+        <div class="grid">
+          {apps.map((a) => (
+            <a class="card" href={appUrl(a.id)}>
+              <div class="pills">{a.data.platforms.map((pl) => <span class="pill">{pl}</span>)}</div>
+              <h3>{a.data.name}</h3>
+              <p>{a.data.summary}</p>
+              <span class="more">Details, support and privacy →</span>
+            </a>
+          ))}
+        </div>
       </div>
-      {apps.length > 0 && (
-        <>
-          <h2>Apps</h2>
-          <div class="grid">
-            {apps.map((a) => (
-              <a class="card" href={appUrl(a.id)}>
-                <h3>{a.data.name}</h3>
-                <p>{a.data.summary}</p>
-                <span class="more">Details and downloads →</span>
-              </a>
-            ))}
-          </div>
-        </>
-      )}
-    </div>
-  </section>
+    </section>
+  )}
 
   <section class="section alt">
     <div class="wrap">
       <span class="eyebrow">Built with</span>
       <h2>The tools behind our work</h2>
-      <p class="muted">Our software is written in Delphi and Object Pascal on the Vulkan API, versioned on GitHub, and developed with help from AI coding assistants such as Claude.</p>
-      <TechBadges items={['vulkan', 'delphi', 'pascal', 'pasvulkan', 'glsl', 'sdl2', 'github', 'claude']} />
+      <p class="muted">
+        Most of our software is written in Delphi and Object Pascal, with Free Pascal on Linux and Python where
+        it fits. We build on open standards and engines such as Vulkan and MuJoCo, publish on GitHub, and use AI
+        coding assistants such as Claude for review, testing and documentation.
+      </p>
+      <TechBadges items={['delphi', 'pascal', 'freepascal', 'python', 'vulkan', 'mujoco', 'fmx', 'ios', 'android', 'bluetooth', 'gis', 'postgresql', 'github', 'claude']} />
     </div>
   </section>
 </Base>
