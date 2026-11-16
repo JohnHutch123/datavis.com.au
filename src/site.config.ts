@@ -15,9 +15,9 @@ export const site = {
   country: 'Australia',
   // Suggested: create support@ and privacy@ aliases that forward to your inbox.
   email: {
-    general: 'johnhutchings17@gmail.com',
-    support: 'johnhutchings17@gmail.com',
-    privacy: 'johnhutchings17@gmail.com',
+    general: 'johnh@datavis.com.au',
+    support: 'johnh@datavis.com.au',
+    privacy: 'johnh@datavis.com.au',
   },
   // Target time to reply to support requests (shown on support pages).
   supportResponse: 'four business days',

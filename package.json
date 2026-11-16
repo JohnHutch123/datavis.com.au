@@ -2,6 +2,7 @@
   "name": "datavis-site",
   "private": true,
   "version": "1.0.0",
+  "license": "UNLICENSED",
   "type": "module",
   "description": "Datavis Pty Ltd website: projects, documentation, app support and privacy pages.",
   "scripts": {
