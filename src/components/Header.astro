@@ -12,7 +12,6 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
         <source srcset="/images/logo-dark.png" media="(prefers-color-scheme: dark)" />
         <img src="/images/logo-light.png" alt="Datavis" width="133" height="32" />
       </picture>
-      <small>Pty Ltd</small>
     </a>
     <nav class="nav desktop" aria-label="Main">
       {nav.map((n) => <a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>)}
