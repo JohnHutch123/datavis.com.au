@@ -21,7 +21,7 @@ export function organization(): Node {
     name: site.legalName,
     alternateName: site.name,
     url: abs('/'),
-    logo: { '@type': 'ImageObject', url: abs('/images/logo-512.png'), width: 512, height: 512 },
+    logo: { '@type': 'ImageObject', url: abs('/images/logo-light.png'), width: 640, height: 154 },
     email: site.email.general,
     ...(site.abn ? { taxID: `ABN ${site.abn}` } : {}),
     address: { '@type': 'PostalAddress', addressCountry: 'AU' },

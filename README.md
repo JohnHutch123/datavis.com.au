@@ -28,8 +28,8 @@ npm run build    # checks every page and writes the finished site to dist/
 | Projects | `src/content/projects/*.md` |
 | Documentation | `src/content/docs/<project>/*.md` |
 | Store apps | `src/content/apps/*.md` |
-| Logo | `public/images/datavis-logo.svg` and `public/favicon.svg`, then run `npm run images` |
-| Link-preview image and square logo | `scripts/make-images.mjs` (writes `public/images/og.png` and `logo-512.png`) |
+| Logo | Replace `assets/logo/logo-light-source.png` (logo on white) and `logo-dark-source.png` (logo on a dark background), then run `npm run images` |
+| Link-preview image, favicon, square icon | `scripts/make-images.mjs` (writes `public/images/og.png`, `logo-light.png`, `logo-dark.png`, `logo-512.png` and `public/favicon.png`) |
 | Search-engine data (structured data) | `src/lib/schema.ts`; per project `keywords:` |
 | Colours and fonts | top of `src/styles/global.css` |
 | Technology badges | `src/data/tech.ts` |

@@ -6,8 +6,13 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="/" aria-label={`${site.legalName} home`}>
-      <img src="/images/datavis-logo.svg" alt="" width="34" height="34" />
-      <span>{site.name} <small>Pty Ltd</small></span>
+      {/* Light and dark versions of the logo, chosen by the visitor's theme.
+          Rebuilt from assets/logo/ by `npm run images`. */}
+      <picture>
+        <source srcset="/images/logo-dark.png" media="(prefers-color-scheme: dark)" />
+        <img src="/images/logo-light.png" alt="Datavis" width="133" height="32" />
+      </picture>
+      <small>Pty Ltd</small>
     </a>
     <nav class="nav desktop" aria-label="Main">
       {nav.map((n) => <a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>)}
