@@ -13,7 +13,7 @@
     "images": "node scripts/make-images.mjs"
   },
   "dependencies": {
-    "@astrojs/sitemap": "3.5.1",
+    "@astrojs/sitemap": "3.7.4",
     "astro": "5.13.2"
   },
   "devDependencies": {
