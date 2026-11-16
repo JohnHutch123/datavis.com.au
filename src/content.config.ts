@@ -34,6 +34,8 @@ const projects = defineCollection({
     license: z.string().optional(),
     status: z.enum(['active', 'beta', 'maintenance', 'archived']).default('active'),
     tech: z.array(z.string()).default([]),
+    // Search phrases for this project, used in its structured data.
+    keywords: z.array(z.string()).default([]),
     links: z.array(z.object({ label: z.string(), url: z.string() })).default([]),
     // Call to action for private/commercial projects.
     enquire: z.string().optional(),
@@ -62,6 +64,9 @@ const apps = defineCollection({
     summary: z.string(),
     project: reference('projects').optional(),
     platforms: z.array(z.enum(['iOS', 'iPadOS', 'macOS', 'Android', 'Windows'])).default([]),
+    // schema.org category, e.g. UtilitiesApplication, BusinessApplication,
+    // DesignApplication, EducationalApplication, DeveloperApplication.
+    category: z.string().default('UtilitiesApplication'),
     appStoreUrl: z.string().url().optional(),
     playStoreUrl: z.string().url().optional(),
     otherDownloads: z.array(z.object({ label: z.string(), url: z.string() })).default([]),

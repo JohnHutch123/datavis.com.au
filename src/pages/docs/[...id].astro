@@ -2,6 +2,7 @@
 import { getEntry, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { getDocs, projectUrl, docUrl, groupUrl } from '../../lib/content';
+import { doc as schemaDoc, breadcrumbs } from '../../lib/schema';
 
 export async function getStaticPaths() {
   const docs = await getDocs();
@@ -17,8 +18,18 @@ const prev = siblings[i - 1];
 const next = siblings[i + 1];
 const { Content, headings } = await render(doc);
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const path = docUrl(doc);
+const schema = [
+  schemaDoc(doc, path, projectUrl(project), project.data.title),
+  breadcrumbs([
+    { name: 'Projects', path: '/projects/' },
+    { name: group?.data.title ?? project.data.group.id, path: groupUrl(project.data.group.id) },
+    { name: project.data.title, path: projectUrl(project) },
+    { name: doc.data.title, path },
+  ]),
+];
 ---
-<Base title={`${doc.data.title} — ${project.data.title}`} description={doc.data.description ?? project.data.summary}>
+<Base title={`${doc.data.title} — ${project.data.title}`} description={doc.data.description ?? project.data.summary} schema={schema}>
   <div class="wrap with-side">
     <article class="prose">
       <div class="crumbs">

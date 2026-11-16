@@ -9,9 +9,11 @@
     "dev": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "images": "node scripts/make-images.mjs"
   },
   "dependencies": {
+    "@astrojs/sitemap": "3.5.1",
     "astro": "5.13.2"
   },
   "devDependencies": {

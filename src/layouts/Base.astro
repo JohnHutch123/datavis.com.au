@@ -3,17 +3,23 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../site.config';
+import { organization, website, toJsonLd, type Node } from '../lib/schema';
 
 interface Props {
   title: string;
   description?: string;
   noindex?: boolean;
+  /** Extra structured data for this page (see src/lib/schema.ts). */
+  schema?: Node[];
 }
-const { title, description = site.description, noindex = false } = Astro.props;
+const { title, description = site.description, noindex = false, schema = [] } = Astro.props;
 const fullTitle = title === site.name ? `${site.legalName} — ${site.tagline}` : `${title} · ${site.name}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL('/images/og.png', Astro.site);
+const jsonLd = toJsonLd([organization(), website(), ...schema]);
 // Strict Content Security Policy for the built site: no third-party scripts,
 // no inline scripts. (Left off in dev so the dev server's tools still work.)
+// The JSON-LD block below is data, not a script, so the policy doesn't block it.
 const csp =
   "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; " +
   "font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests";
@@ -30,14 +36,21 @@ const csp =
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/images/logo-512.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.legalName} />
+    <meta property="og:locale" content="en_AU" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    {/* Add a 1200x630 image at public/images/og.png and uncomment for link previews:
-    <meta property="og:image" content={new URL('/images/og.png', Astro.site)} /> */}
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.legalName}: ${site.tagline}`} />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#0b0f17" />
+    <script type="application/ld+json" is:inline set:html={jsonLd} />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>

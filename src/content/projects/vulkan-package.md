@@ -7,6 +7,7 @@ repo: https://github.com/JohnHutch123/Vulkan_Package
 license: zlib
 status: active
 tech: [vulkan, delphi, pascal, pasvulkan, vcl, fmx, sdl2, glsl, github]
+keywords: [Vulkan Delphi components, Delphi 3D graphics, PasVulkan, Object Pascal Vulkan, Delphi VCL 3D, open source Delphi package]
 order: 1
 ---
 

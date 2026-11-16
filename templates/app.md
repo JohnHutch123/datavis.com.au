@@ -5,6 +5,7 @@ name: App Name
 summary: One or two sentences about the app.
 project: my-project           # optional: links the app to a project page
 platforms: [iOS, Android]     # iOS | iPadOS | macOS | Android | Windows
+category: UtilitiesApplication # or BusinessApplication, DesignApplication, EducationalApplication…
 appStoreUrl: https://apps.apple.com/app/id0000000000
 playStoreUrl: https://play.google.com/store/apps/details?id=au.com.datavis.appname
 # supportEmail: appname@datavis.com.au   # defaults to the support email in site.config.ts

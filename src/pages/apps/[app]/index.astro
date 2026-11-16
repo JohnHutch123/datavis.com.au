@@ -5,6 +5,7 @@ import AppHeader from '../../../components/AppHeader.astro';
 import StoreButtons from '../../../components/StoreButtons.astro';
 import { site } from '../../../site.config';
 import { getApps, appUrl, projectUrl } from '../../../lib/content';
+import { app as schemaApp, breadcrumbs } from '../../../lib/schema';
 
 export async function getStaticPaths() {
   return (await getApps()).map((app) => ({ params: { app: app.id }, props: { app } }));
@@ -14,8 +15,15 @@ const project = app.data.project ? await getEntry(app.data.project) : undefined;
 const { Content } = await render(app);
 const base = appUrl(app.id);
 const email = app.data.supportEmail ?? site.email.support;
+const schema = [
+  schemaApp(app, base),
+  breadcrumbs([
+    { name: 'Apps', path: '/apps/' },
+    { name: app.data.name, path: base },
+  ]),
+];
 ---
-<Base title={app.data.name} description={app.data.summary}>
+<Base title={app.data.name} description={app.data.summary} schema={schema}>
   <AppHeader app={app} />
   <div class="wrap with-side">
     <article class="prose">

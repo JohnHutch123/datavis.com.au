@@ -28,7 +28,9 @@ npm run build    # checks every page and writes the finished site to dist/
 | Projects | `src/content/projects/*.md` |
 | Documentation | `src/content/docs/<project>/*.md` |
 | Store apps | `src/content/apps/*.md` |
-| Logo | `public/images/datavis-logo.svg` and `public/favicon.svg` |
+| Logo | `public/images/datavis-logo.svg` and `public/favicon.svg`, then run `npm run images` |
+| Link-preview image and square logo | `scripts/make-images.mjs` (writes `public/images/og.png` and `logo-512.png`) |
+| Search-engine data (structured data) | `src/lib/schema.ts`; per project `keywords:` |
 | Colours and fonts | top of `src/styles/global.css` |
 | Technology badges | `src/data/tech.ts` |
 
@@ -97,6 +99,12 @@ published anyway. If you want the repository private, use Cloudflare Pages.
 Connect the repository in the Cloudflare dashboard (Workers & Pages → Create → Pages → Connect to Git),
 with build command `npm run build` and output directory `dist`. Cloudflare applies the security headers
 in `public/_headers` automatically.
+
+## Search engines
+
+- **Sitemap:** every build writes `sitemap-index.xml`, listed in `robots.txt`. After going live, add the site in [Google Search Console](https://search.google.com/search-console) and [Bing Webmaster Tools](https://www.bing.com/webmasters) and submit `https://www.datavis.com.au/sitemap-index.xml`.
+- **Structured data:** every page describes Datavis Pty Ltd as an organisation; project, doc and app pages add software, article and breadcrumb details. Check a live page with the [Rich Results Test](https://search.google.com/test/rich-results).
+- **Titles and descriptions:** the `title:`, `summary:` and `description:` lines in each content file are what search results show. Keep descriptions to about 150 characters.
 
 ## Security notes
 

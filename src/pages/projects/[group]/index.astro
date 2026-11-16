@@ -4,6 +4,7 @@ import Base from '../../../layouts/Base.astro';
 import ProjectCard from '../../../components/ProjectCard.astro';
 import TechBadges from '../../../components/TechBadges.astro';
 import { getGroups, getProjects } from '../../../lib/content';
+import { breadcrumbs } from '../../../lib/schema';
 
 export async function getStaticPaths() {
   const groups = await getGroups();
@@ -12,8 +13,14 @@ export async function getStaticPaths() {
 const { group } = Astro.props;
 const projects = await getProjects(group.id);
 const { Content } = await render(group);
+const schema = [
+  breadcrumbs([
+    { name: 'Projects', path: '/projects/' },
+    { name: group.data.title, path: `/projects/${group.id}/` },
+  ]),
+];
 ---
-<Base title={group.data.title} description={group.data.summary}>
+<Base title={group.data.title} description={group.data.summary} schema={schema}>
   <section class="hero">
     <div class="wrap">
       <div class="crumbs"><a href="/projects/">Projects</a> / {group.data.title}</div>

@@ -7,6 +7,7 @@ license: Commercial
 status: active
 enquire: Enquire about a PRO licence
 tech: [vulkan, delphi, pascal, pasvulkan, gltf, glsl]
+keywords: [Delphi CAD components, Delphi DXF DWG, Delphi glTF loader, Delphi STEP import, Vulkan 3D editing Delphi, Delphi particle system]
 order: 2
 ---
 

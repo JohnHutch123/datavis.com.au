@@ -8,6 +8,7 @@ repo: https://github.com/JohnHutch123/My_Project   # public projects only
 license: MIT
 status: active                # active | beta | maintenance | archived
 tech: [delphi, vulkan, github] # keys from src/data/tech.ts
+keywords: [phrase people search for, another phrase]  # used in search-engine structured data
 links:                        # optional extra buttons
   - label: Download installer
     url: https://github.com/JohnHutch123/My_Project/releases/latest
