@@ -32,11 +32,16 @@ const projects = defineCollection({
     visibility: z.enum(['public', 'private']),
     repo: z.string().url().optional(),
     license: z.string().optional(),
-    status: z.enum(['active', 'beta', 'maintenance', 'archived']).default('active'),
+    // wip = work in progress: shown with a WIP badge and a notice on the page.
+    status: z.enum(['active', 'wip', 'beta', 'maintenance', 'archived']).default('active'),
     tech: z.array(z.string()).default([]),
     // Search phrases for this project, used in its structured data.
     keywords: z.array(z.string()).default([]),
     links: z.array(z.object({ label: z.string(), url: z.string() })).default([]),
+    // External libraries, standards and related projects, listed in the page's sidebar.
+    references: z
+      .array(z.object({ label: z.string(), url: z.string(), note: z.string().optional() }))
+      .default([]),
     // Call to action for private/commercial projects.
     enquire: z.string().optional(),
     order: z.number().default(100),

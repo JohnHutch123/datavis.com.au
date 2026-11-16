@@ -4,7 +4,7 @@ import Base from '../../../layouts/Base.astro';
 import TechBadges from '../../../components/TechBadges.astro';
 import { site } from '../../../site.config';
 import { project as schemaProject, breadcrumbs } from '../../../lib/schema';
-import { getProjects, getDocs, getApps, groupUrl, projectUrl, docUrl, appUrl } from '../../../lib/content';
+import { getProjects, getDocs, getApps, groupUrl, projectUrl, docUrl, appUrl, statusLabel } from '../../../lib/content';
 
 export async function getStaticPaths() {
   const projects = await getProjects();
@@ -36,8 +36,8 @@ const schema = [
       <div class="crumbs"><a href="/projects/">Projects</a> / <a href={groupUrl(p.data.group.id)}>{group?.data.title}</a> / {p.data.title}</div>
       <div class="pills" style="margin-bottom:1rem">
         <span class={`pill ${p.data.visibility}`}>{p.data.visibility === 'public' ? 'Open source' : 'Commercial · private repository'}</span>
+        {p.data.status === 'wip' ? <span class="pill wip">Work in progress</span> : <span class="pill">{statusLabel[p.data.status]}</span>}
         {p.data.license && <span class="pill">{p.data.license}</span>}
-        <span class="pill">{p.data.status}</span>
       </div>
       <h1>{p.data.title}</h1>
       <p class="lead">{p.data.summary}</p>
@@ -52,7 +52,12 @@ const schema = [
     </div>
   </section>
   <div class="wrap with-side">
-    <article class="prose"><Content /></article>
+    <article class="prose">
+      {p.data.status === 'wip' && (
+        <p class="notice"><strong>Work in progress.</strong> This project is under active development: features, names and file formats may change, and some parts described here are not finished yet.</p>
+      )}
+      <Content />
+    </article>
     <aside class="side">
       {toc.length > 1 && (
         <div class="card">
@@ -70,6 +75,16 @@ const schema = [
         <div class="card">
           <h4>Apps</h4>
           <ul>{apps.map((a) => <li><a href={appUrl(a.id)}>{a.data.name}</a></li>)}</ul>
+        </div>
+      )}
+      {p.data.references.length > 0 && (
+        <div class="card">
+          <h4>External libraries and references</h4>
+          <ul class="refs">
+            {p.data.references.map((r) => (
+              <li><a href={r.url} rel="noopener">{r.label}</a>{r.note && <small>{r.note}</small>}</li>
+            ))}
+          </ul>
         </div>
       )}
       {p.data.tech.length > 0 && (

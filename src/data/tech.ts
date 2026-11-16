@@ -15,4 +15,12 @@ export const tech: Record<string, { name: string; url: string; color: string; ma
   ios: { name: 'iOS', url: 'https://developer.apple.com/ios/', color: '#8e8e93', mark: 'i' },
   android: { name: 'Android', url: 'https://developer.android.com', color: '#3ddc84', mark: 'A' },
   gltf: { name: 'glTF', url: 'https://www.khronos.org/gltf/', color: '#87c540', mark: 'gl' },
+  mujoco: { name: 'MuJoCo', url: 'https://mujoco.org', color: '#0f7b8a', mark: 'Mj' },
+  freepascal: { name: 'Free Pascal', url: 'https://www.freepascal.org', color: '#2b5797', mark: 'FP' },
+  python: { name: 'Python', url: 'https://www.python.org', color: '#3776ab', mark: 'Py' },
+  postgresql: { name: 'PostgreSQL', url: 'https://www.postgresql.org', color: '#336791', mark: 'PG' },
+  bluetooth: { name: 'Bluetooth LE', url: 'https://www.bluetooth.com', color: '#0082fc', mark: 'BT' },
+  racebox: { name: 'RaceBox', url: 'https://www.racebox.pro', color: '#e4002b', mark: 'RB' },
+  gis: { name: 'GIS / Shapefile', url: 'https://en.wikipedia.org/wiki/Shapefile', color: '#4a8a3c', mark: 'GIS' },
+  linux: { name: 'Linux', url: 'https://www.kernel.org', color: '#7a6a24', mark: 'L' },
 };

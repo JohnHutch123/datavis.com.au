@@ -23,6 +23,14 @@ export async function getApps(projectId?: string) {
   return projectId ? all.filter((a) => a.data.project?.id === projectId) : all;
 }
 
+export const statusLabel: Record<string, string> = {
+  active: 'Active',
+  wip: 'Work in progress',
+  beta: 'Beta',
+  maintenance: 'Maintenance',
+  archived: 'Archived',
+};
+
 export const projectUrl = (p: CollectionEntry<'projects'>) => `/projects/${p.data.group.id}/${p.id}/`;
 export const groupUrl = (id: string) => `/projects/${id}/`;
 export const docUrl = (d: CollectionEntry<'docs'>) => `/docs/${d.id}/`;

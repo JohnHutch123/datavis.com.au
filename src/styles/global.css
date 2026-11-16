@@ -122,7 +122,10 @@ a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
 .pill { display: inline-flex; align-items: center; gap: 0.35rem; font: 600 0.72rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.06em; padding: 0.35rem 0.55rem; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); width: fit-content; }
 .pill.public { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 40%, transparent); }
 .pill.private { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 40%, transparent); }
+.pill.wip { color: var(--accent-ink); background: var(--warn); border-color: var(--warn); }
 .pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.side .refs li { display: flex; flex-direction: column; gap: 0.1rem; margin-bottom: 0.35rem; }
+.side .refs small { color: var(--muted); font-size: 0.8rem; line-height: 1.35; }
 
 /* Tech badges */
 .badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
