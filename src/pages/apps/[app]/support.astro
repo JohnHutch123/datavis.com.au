@@ -1,0 +1,49 @@
+---
+// This page's URL is the "Support URL" for App Store Connect and the
+// support link for Google Play: https://www.datavis.com.au/apps/<app>/support/
+import Base from '../../../layouts/Base.astro';
+import AppHeader from '../../../components/AppHeader.astro';
+import { site } from '../../../site.config';
+import { getApps, appUrl } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  return (await getApps()).map((app) => ({ params: { app: app.id }, props: { app } }));
+}
+const { app } = Astro.props;
+const email = app.data.supportEmail ?? site.email.support;
+const mail = `mailto:${email}?subject=${encodeURIComponent(app.data.name + ' support')}`;
+const base = appUrl(app.id);
+---
+<Base title={`${app.data.name} support`} description={`Get help with ${app.data.name} by ${site.legalName}.`}>
+  <AppHeader app={app} section="Support" />
+  <section class="section">
+    <div class="wrap prose">
+      <h2 style="margin-top:0">Contact support</h2>
+      <p>Email <a href={mail}>{email}</a> and we'll reply within {site.supportResponse}. Please include your device model, operating system version, the app version (shown in the app's settings or about screen) and a description of the problem.</p>
+      <div class="actions"><a class="btn primary" href={mail}>Email support</a></div>
+
+      {app.data.faq.length > 0 && (
+        <>
+          <h2>Frequently asked questions</h2>
+          {app.data.faq.map((f) => (
+            <details class="faq"><summary>{f.q}</summary><p>{f.a}</p></details>
+          ))}
+        </>
+      )}
+
+      <h2>Common fixes</h2>
+      <ul>
+        <li>Make sure you have the latest version of {app.data.name} from the App Store or Google Play.</li>
+        <li>Close the app completely and open it again.</li>
+        <li>Restart your device.</li>
+        <li>Check that your device meets the minimum requirements{app.data.minOs && <> ({app.data.minOs})</>}.</li>
+      </ul>
+
+      <h2>Privacy</h2>
+      <p>Read the <a href={`${base}privacy/`}>{app.data.name} privacy policy</a>.{app.data.privacy.accounts && <> To delete your account and data, see <a href={`${base}delete-account/`}>delete your account</a>.</>}</p>
+
+      <h2>Developer</h2>
+      <p>{site.legalName}{site.abn && <>, ABN {site.abn}</>}, {site.country}.</p>
+    </div>
+  </section>
+</Base>

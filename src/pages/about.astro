@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import TechBadges from '../components/TechBadges.astro';
+import { site } from '../site.config';
+---
+<Base title="About" description={`About ${site.legalName}: who we are, what we build and how we work.`}>
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">About</span>
+      <h1>About {site.legalName}</h1>
+      <p class="lead">An Australian software business focused on high-performance graphics, data visualisation and the developer tools that make them practical.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap prose">
+      <!-- EDIT ME: replace this boilerplate with your own story. -->
+      <h2>Who we are</h2>
+      <p>
+        Datavis has been building visualisation software for engineers and developers for many years. Our
+        focus today is bringing the modern Vulkan graphics API to Delphi developers in a form that feels
+        native to the IDE: components you drop on a form, properties you set in the Object Inspector, and
+        a scene you can see at design time.
+      </p>
+
+      <h2>What we build</h2>
+      <ul>
+        <li><strong>Component packages</strong> for Delphi (VCL, FireMonkey and SDL2) built on the Vulkan API.</li>
+        <li><strong>Commercial extensions</strong> for CAD and 3D file formats, interactive editing tools and advanced rendering.</li>
+        <li><strong>Apps</strong> for iOS and Android, and desktop tools for Windows.</li>
+        <li><strong>Documentation and samples</strong> so each project can be picked up and used, not just read.</li>
+      </ul>
+
+      <h2>How we work</h2>
+      <p>
+        We publish the core of our work as open source on GitHub under permissive licences, so anyone can
+        learn from it and use it in their own products. Features that take sustained investment are offered
+        as commercial PRO packages, which fund the open source work.
+      </p>
+      <p>
+        We use AI coding assistants, including Claude by Anthropic, as part of our development process for
+        code review, testing and documentation. Every change is reviewed, built and tested before release.
+      </p>
+
+      <h2>Technology</h2>
+      <TechBadges items={['vulkan', 'delphi', 'pascal', 'pasvulkan', 'vcl', 'fmx', 'sdl2', 'glsl', 'gltf', 'github', 'claude']} />
+
+      <h2>Company details</h2>
+      <dl class="kv">
+        <dt>Business</dt><dd>{site.legalName}</dd>
+        {site.abn && <><dt>ABN</dt><dd>{site.abn}</dd></>}
+        <dt>Location</dt><dd>{site.country}</dd>
+        <dt>Email</dt><dd><a href={`mailto:${site.email.general}`}>{site.email.general}</a></dd>
+        <dt>GitHub</dt><dd><a href={site.github.url} rel="noopener">{site.github.url.replace('https://', '')}</a></dd>
+      </dl>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,123 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site.config';
+import { getApps, appUrl } from '../lib/content';
+const apps = await getApps();
+const updated = new Date(site.privacyUpdated).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+// BOILERPLATE: a sensible starting point for a small Australian software business.
+// It is not legal advice: review it against what your apps really do.
+---
+<Base title="Privacy policy" description={`How ${site.legalName} collects, uses and protects personal information.`}>
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Legal</span>
+      <h1>Privacy policy</h1>
+      <p class="lead">Last updated {updated}</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap prose">
+      <p>
+        This policy explains how {site.legalName} ("Datavis", "we", "us") handles personal information when you
+        use this website, our apps and our software. We aim to collect as little as possible. We handle personal
+        information in line with the Australian Privacy Principles in the <em>Privacy Act 1988</em> (Cth).
+      </p>
+
+      {apps.length > 0 && (
+        <p>
+          Each app also has its own privacy page that lists exactly what that app collects:
+          {apps.map((a, i) => <>{i > 0 && ', '}<a href={`${appUrl(a.id)}privacy/`}>{a.data.name}</a></>)}.
+          Where an app's page says something more specific, it applies to that app.
+        </p>
+      )}
+
+      <h2 id="collect">What we collect</h2>
+      <h3>When you visit this website</h3>
+      <p>
+        This website does not use cookies, analytics, advertising or tracking scripts, and has no forms or
+        accounts. Like every web server, our hosting provider may record standard technical logs (IP address,
+        browser type, pages requested and time) to keep the service secure and running. We do not use these logs
+        to identify you.
+      </p>
+      <h3>When you contact us</h3>
+      <p>
+        If you email us, we receive your email address, your name if you include it, and whatever you choose to
+        tell us. We use it only to reply and to provide the support or service you asked for.
+      </p>
+      <h3>When you use our apps</h3>
+      <p>
+        Unless an app's privacy page says otherwise, our apps do not collect personal information, do not require
+        an account, and keep your data on your device. Where an app does collect data, its privacy page lists the
+        categories, why they are collected, and whether they are shared.
+      </p>
+      <h3>When you buy a commercial licence</h3>
+      <p>
+        We keep the name, business details, email address and licence details needed to issue and support your
+        licence, and the records we are required to keep for tax purposes. Payments are processed by our payment
+        provider; we do not see or store your full card details.
+      </p>
+
+      <h2 id="use">How we use it</h2>
+      <ul>
+        <li>to reply to you and provide support;</li>
+        <li>to issue, manage and support licences;</li>
+        <li>to keep our services secure and fix problems;</li>
+        <li>to meet legal and tax obligations.</li>
+      </ul>
+      <p>We do not sell personal information, and we do not use it for advertising.</p>
+
+      <h2 id="share">Who we share it with</h2>
+      <p>
+        We share personal information only with service providers that help us run the business (for example
+        email, hosting and payment providers), only as much as they need, or where the law requires it. Some
+        of these providers may store data outside Australia, including in the United States. We choose providers
+        that protect information to a standard similar to the Australian Privacy Principles.
+      </p>
+
+      <h2 id="security">How we protect it</h2>
+      <p>
+        We keep personal information in accounts protected by strong passwords and two-factor authentication,
+        limit who can access it, and delete it when we no longer need it. No system is perfectly secure; if a
+        data breach is likely to cause you serious harm, we will tell you and, where required, the Office of
+        the Australian Information Commissioner.
+      </p>
+
+      <h2 id="retention">How long we keep it</h2>
+      <p>
+        We keep support emails for as long as needed to help you and for a reasonable time afterwards, and
+        licence and financial records for as long as the law requires (generally five to seven years).
+      </p>
+
+      <h2 id="rights">Your choices and rights</h2>
+      <p>
+        You can ask to see the personal information we hold about you, ask us to correct it, or ask us to delete
+        it, by emailing <a href={`mailto:${site.email.privacy}`}>{site.email.privacy}</a>. We will respond within
+        30 days. If you are in the European Union, United Kingdom or a US state with privacy laws, you have
+        similar rights under those laws, and we will honour them.
+      </p>
+
+      <h2 id="children">Children</h2>
+      <p>
+        Our apps and services are not directed at children under 13, and we do not knowingly collect personal
+        information from them. If you think a child has given us personal information, contact us and we will
+        delete it.
+      </p>
+
+      <h2 id="changes">Changes to this policy</h2>
+      <p>
+        If we change this policy, we will update the date at the top of this page. If a change matters, for
+        example an app starts collecting new data, we will say so in the app's release notes too.
+      </p>
+
+      <h2 id="contact">Contact and complaints</h2>
+      <p>
+        {site.legalName}{site.abn && <> (ABN {site.abn})</>}, {site.country}. Email:
+        <a href={`mailto:${site.email.privacy}`}>{site.email.privacy}</a>.
+      </p>
+      <p>
+        If you are not satisfied with our response to a privacy complaint, you can contact the
+        <a href="https://www.oaic.gov.au/" rel="noopener">Office of the Australian Information Commissioner</a>.
+      </p>
+    </div>
+  </section>
+</Base>

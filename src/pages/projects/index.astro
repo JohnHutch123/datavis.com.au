@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import TechBadges from '../../components/TechBadges.astro';
+import { getGroups, getProjects, groupUrl } from '../../lib/content';
+const groups = await getGroups();
+const projects = await getProjects();
+---
+<Base title="Projects" description="Datavis projects: open source and commercial packages, tools and apps.">
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Projects</span>
+      <h1>Projects</h1>
+      <p class="lead">Our work is organised into groups of related projects. Each project has its own overview, documentation and links to the code or downloads.</p>
+    </div>
+  </section>
+  {groups.map((g, i) => (
+    <section class={`section ${i % 2 ? 'alt' : ''}`}>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2><a href={groupUrl(g.id)}>{g.data.title}</a></h2>
+            <p class="muted" style="margin:.4rem 0 0">{g.data.summary}</p>
+          </div>
+          <a href={groupUrl(g.id)}>Group overview →</a>
+        </div>
+        <TechBadges items={g.data.tech} />
+        <div class="grid" style="margin-top:1.2rem">
+          {projects.filter((p) => p.data.group.id === g.id).map((p) => <ProjectCard project={p} />)}
+        </div>
+      </div>
+    </section>
+  ))}
+</Base>

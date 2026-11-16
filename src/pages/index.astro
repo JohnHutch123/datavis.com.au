@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import TechBadges from '../components/TechBadges.astro';
+import { site } from '../site.config';
+import { getGroups, getProjects, getApps, groupUrl, appUrl } from '../lib/content';
+
+const groups = await getGroups();
+const projects = await getProjects();
+const apps = await getApps();
+const featured = projects.slice(0, 3);
+---
+<Base title={site.name}>
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">{site.legalName}</span>
+      <h1>Fast <span class="grad">Vulkan graphics</span> for Delphi, and the tools to build with it.</h1>
+      <p class="lead">
+        Datavis builds component packages, data visualisation software and apps. We publish open source
+        where we can, license commercial extras where it makes sense, and document all of it so you can
+        get from a blank form to a working 3D view quickly.
+      </p>
+      <div class="actions">
+        <a class="btn primary" href="/projects/">Explore projects</a>
+        <a class="btn" href={site.github.url} rel="noopener">GitHub</a>
+        <a class="btn" href="/contact/">Talk to us</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Projects</span>
+          <h2>What we're working on</h2>
+        </div>
+        <a href="/projects/">All projects →</a>
+      </div>
+      <div class="grid">
+        {featured.map((p) => <ProjectCard project={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <span class="eyebrow">How we work</span>
+      <h2>Open core, commercial extras, documented throughout</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Learn</h3>
+          <p>Step-by-step guides, component references and sample projects for every package, written for working Delphi developers.</p>
+        </div>
+        <div class="card">
+          <h3>Build</h3>
+          <p>Drop-in components that handle the Vulkan boilerplate: instance, devices, swap chains, pipelines, scenes, cameras and picking.</p>
+        </div>
+        <div class="card">
+          <h3>Ship</h3>
+          <p>Open source under the zlib licence for the core, with commercial PRO packages when you need CAD formats, editing tools and more.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Areas</span>
+      <h2>Project groups</h2>
+      <div class="grid">
+        {groups.map((g) => (
+          <a class="card" href={groupUrl(g.id)}>
+            <h3>{g.data.title}</h3>
+            <p>{g.data.summary}</p>
+            <span class="more">Open group →</span>
+          </a>
+        ))}
+      </div>
+      {apps.length > 0 && (
+        <>
+          <h2>Apps</h2>
+          <div class="grid">
+            {apps.map((a) => (
+              <a class="card" href={appUrl(a.id)}>
+                <h3>{a.data.name}</h3>
+                <p>{a.data.summary}</p>
+                <span class="more">Details and downloads →</span>
+              </a>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <span class="eyebrow">Built with</span>
+      <h2>The tools behind our work</h2>
+      <p class="muted">Our software is written in Delphi and Object Pascal on the Vulkan API, versioned on GitHub, and developed with help from AI coding assistants such as Claude.</p>
+      <TechBadges items={['vulkan', 'delphi', 'pascal', 'pasvulkan', 'glsl', 'sdl2', 'github', 'claude']} />
+    </div>
+  </section>
+</Base>

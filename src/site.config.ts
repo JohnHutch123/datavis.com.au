@@ -1,0 +1,37 @@
+// ---------------------------------------------------------------------------
+// Site-wide settings. Change business details here once and every page
+// (footer, contact, support and privacy pages) picks them up.
+// ---------------------------------------------------------------------------
+
+export const site = {
+  name: 'Datavis',
+  legalName: 'Datavis Pty Ltd',
+  // Fill in your ABN; leave '' to hide it.
+  abn: '80 094 434 849',
+  tagline: 'Graphics, data visualisation and developer tools',
+  description:
+    'Datavis Pty Ltd builds Vulkan graphics components for Delphi, data visualisation software and mobile apps.',
+  url: 'https://www.datavis.com.au',
+  country: 'Australia',
+  // Suggested: create support@ and privacy@ aliases that forward to your inbox.
+  email: {
+    general: 'johnhutchings17@gmail.com',
+    support: 'johnhutchings17@gmail.com',
+    privacy: 'johnhutchings17@gmail.com',
+  },
+  // Target time to reply to support requests (shown on support pages).
+  supportResponse: 'four business days',
+  github: {
+    user: 'JohnHutch123',
+    url: 'https://github.com/JohnHutch123',
+  },
+  // The date the general privacy policy last changed (YYYY-MM-DD).
+  privacyUpdated: '2026-11-16',
+} as const;
+
+export const nav = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about/' },
+  { label: 'Projects', href: '/projects/' },
+  { label: 'Contact', href: '/contact/' },
+] as const;

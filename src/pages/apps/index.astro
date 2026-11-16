@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getApps, appUrl } from '../../lib/content';
+const apps = await getApps();
+---
+<Base title="Apps" description="Datavis apps for iOS, Android and desktop.">
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Apps</span>
+      <h1>Apps</h1>
+      <p class="lead">Download links, support and privacy information for each of our apps.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      {apps.length === 0 ? <p class="muted">No apps are published yet.</p> : (
+        <div class="grid">
+          {apps.map((a) => (
+            <a class="card" href={appUrl(a.id)}>
+              <div class="pills">{a.data.platforms.map((pl) => <span class="pill">{pl}</span>)}{a.data.draft && <span class="pill">draft</span>}</div>
+              <h3>{a.data.name}</h3>
+              <p>{a.data.summary}</p>
+              <span class="more">Details →</span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,17 @@
+---
+import { tech } from '../data/tech';
+interface Props { items: string[] }
+const { items } = Astro.props;
+---
+{items.length > 0 && (
+  <div class="badges">
+    {items.map((key) => {
+      const t = tech[key];
+      return t ? (
+        <a class="badge" href={t.url} rel="noopener" style={`--c:${t.color}`}><i aria-hidden="true">{t.mark}</i>{t.name}</a>
+      ) : (
+        <span class="badge" style="--c:#666"><i aria-hidden="true">•</i>{key}</span>
+      );
+    })}
+  </div>
+)}

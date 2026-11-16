@@ -1,0 +1,47 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import AppHeader from '../../../components/AppHeader.astro';
+import StoreButtons from '../../../components/StoreButtons.astro';
+import { site } from '../../../site.config';
+import { getApps, appUrl, projectUrl } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  return (await getApps()).map((app) => ({ params: { app: app.id }, props: { app } }));
+}
+const { app } = Astro.props;
+const project = app.data.project ? await getEntry(app.data.project) : undefined;
+const { Content } = await render(app);
+const base = appUrl(app.id);
+const email = app.data.supportEmail ?? site.email.support;
+---
+<Base title={app.data.name} description={app.data.summary}>
+  <AppHeader app={app} />
+  <div class="wrap with-side">
+    <article class="prose">
+      <h2 style="margin-top:0">Download</h2>
+      <StoreButtons appStoreUrl={app.data.appStoreUrl} playStoreUrl={app.data.playStoreUrl} other={app.data.otherDownloads} />
+      <Content />
+    </article>
+    <aside class="side">
+      <div class="card">
+        <h4>Details</h4>
+        <dl class="kv">
+          <dt>Developer</dt><dd>{site.legalName}</dd>
+          {app.data.platforms.length > 0 && <><dt>Platforms</dt><dd>{app.data.platforms.join(', ')}</dd></>}
+          {app.data.minOs && <><dt>Requires</dt><dd>{app.data.minOs}</dd></>}
+          {project && <><dt>Project</dt><dd><a href={projectUrl(project)}>{project.data.title}</a></dd></>}
+        </dl>
+      </div>
+      <div class="card">
+        <h4>Help</h4>
+        <ul>
+          <li><a href={`${base}support/`}>Support</a></li>
+          <li><a href={`${base}privacy/`}>Privacy policy</a></li>
+          {app.data.privacy.accounts && <li><a href={`${base}delete-account/`}>Delete your account</a></li>}
+          <li><a href={`mailto:${email}`}>{email}</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</Base>

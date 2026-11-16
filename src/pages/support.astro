@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site.config';
+import { getApps, getProjects, appUrl, projectUrl } from '../lib/content';
+const apps = await getApps();
+const projects = (await getProjects()).filter((p) => p.data.visibility === 'public' && p.data.repo);
+const mail = `mailto:${site.email.support}?subject=${encodeURIComponent('Support request')}`;
+---
+<Base title="Support" description={`Get help with ${site.legalName} apps and software.`}>
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Support</span>
+      <h1>Support</h1>
+      <p class="lead">We're here to help with any Datavis app, package or tool. Email us and we'll reply within {site.supportResponse}.</p>
+      <div class="actions"><a class="btn primary" href={mail}>Email {site.email.support}</a></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap prose">
+      <h2>Getting a quick answer</h2>
+      <p>Please include:</p>
+      <ul>
+        <li>the product or app name and version;</li>
+        <li>your device and operating system version (for example iPhone 15, iOS 26; Pixel 8, Android 16; Windows 11, Delphi 13);</li>
+        <li>what you expected to happen, what happened instead, and the steps to reproduce it;</li>
+        <li>screenshots or error messages, if you have them.</li>
+      </ul>
+
+      {apps.length > 0 && (
+        <>
+          <h2>App support</h2>
+          <ul>{apps.map((a) => <li><a href={`${appUrl(a.id)}support/`}>{a.data.name} support</a></li>)}</ul>
+        </>
+      )}
+
+      {projects.length > 0 && (
+        <>
+          <h2>Open source projects</h2>
+          <p>Bug reports and feature requests for open source projects are welcome as GitHub issues:</p>
+          <ul>{projects.map((p) => <li><a href={projectUrl(p)}>{p.data.title}</a> · <a href={`${p.data.repo}/issues`} rel="noopener">issues</a></li>)}</ul>
+        </>
+      )}
+
+      <h2>Commercial customers</h2>
+      <p>If you hold a commercial (PRO) licence, email us from the address the licence was issued to so we can prioritise your request.</p>
+
+      <h2>Privacy and data requests</h2>
+      <p>To ask what data we hold about you, or to have it corrected or deleted, see our <a href="/privacy/">privacy policy</a> or email <a href={`mailto:${site.email.privacy}`}>{site.email.privacy}</a>.</p>
+    </div>
+  </section>
+</Base>

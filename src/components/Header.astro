@@ -1,0 +1,22 @@
+---
+import { nav, site } from '../site.config';
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label={`${site.legalName} home`}>
+      <img src="/images/datavis-logo.svg" alt="" width="34" height="34" />
+      <span>{site.name} <small>Pty Ltd</small></span>
+    </a>
+    <nav class="nav desktop" aria-label="Main">
+      {nav.map((n) => <a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>)}
+    </nav>
+    <details class="menu">
+      <summary aria-label="Menu">Menu</summary>
+      <nav class="nav" aria-label="Main (mobile)">
+        {nav.map((n) => <a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>)}
+      </nav>
+    </details>
+  </div>
+</header>

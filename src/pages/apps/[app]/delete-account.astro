@@ -1,0 +1,34 @@
+---
+// Google Play requires a web page explaining how to delete an account and its
+// data for any app that lets users create an account. Built only for apps with
+// `privacy.accounts: true`. Use this URL in Play Console > Data safety.
+import Base from '../../../layouts/Base.astro';
+import AppHeader from '../../../components/AppHeader.astro';
+import { site } from '../../../site.config';
+import { getApps } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  return (await getApps())
+    .filter((app) => app.data.privacy.accounts)
+    .map((app) => ({ params: { app: app.id }, props: { app } }));
+}
+const { app } = Astro.props;
+const mail = `mailto:${site.email.privacy}?subject=${encodeURIComponent(app.data.name + ' account deletion')}`;
+---
+<Base title={`Delete your ${app.data.name} account`} description={`How to delete your ${app.data.name} account and data.`}>
+  <AppHeader app={app} section="Delete account" />
+  <section class="section">
+    <div class="wrap prose">
+      <h2 style="margin-top:0">In the app</h2>
+      <ol>
+        <li>Open {app.data.name} and sign in.</li>
+        <li>Go to <strong>Settings → Account</strong>.</li>
+        <li>Tap <strong>Delete account</strong> and confirm.</li>
+      </ol>
+      <h2>By email</h2>
+      <p>If you can no longer use the app, email <a href={mail}>{site.email.privacy}</a> from the address on your account with the subject "{app.data.name} account deletion". We will confirm by email and complete the deletion within 30 days.</p>
+      <h2>What is deleted</h2>
+      <p>Your account, profile and all data linked to it are permanently deleted. We may keep records we are legally required to keep (for example purchase records for tax) for the period the law requires.</p>
+    </div>
+  </section>
+</Base>

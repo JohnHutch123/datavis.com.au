@@ -1,0 +1,52 @@
+---
+import { site } from '../site.config';
+import { getGroups, getApps, groupUrl, appUrl } from '../lib/content';
+const groups = await getGroups();
+const apps = await getApps();
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>{site.legalName}</h4>
+        <p>{site.tagline}.</p>
+        <p>{site.country}{site.abn && <> · ABN {site.abn}</>}</p>
+      </div>
+      <div>
+        <h4>Projects</h4>
+        <ul>
+          {groups.map((g) => <li><a href={groupUrl(g.id)}>{g.data.title}</a></li>)}
+          <li><a href="/projects/">All projects</a></li>
+        </ul>
+      </div>
+      {apps.length > 0 && (
+        <div>
+          <h4>Apps</h4>
+          <ul>
+            {apps.map((a) => <li><a href={appUrl(a.id)}>{a.data.name}</a></li>)}
+            <li><a href="/apps/">All apps</a></li>
+          </ul>
+        </div>
+      )}
+      <div>
+        <h4>Help</h4>
+        <ul>
+          <li><a href="/support/">Support</a></li>
+          <li><a href="/privacy/">Privacy policy</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href={site.github.url} rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <p>© {year} {site.legalName}. All rights reserved.</p>
+      <p>
+        Vulkan and the Vulkan logo are registered trademarks of the Khronos Group Inc. Delphi is a trademark of
+        Embarcadero Technologies, Inc. GitHub is a trademark of GitHub, Inc. Claude is a trademark of Anthropic, PBC.
+        App Store is a service mark of Apple Inc. Google Play is a trademark of Google LLC. Other names are trademarks
+        of their owners. {site.legalName} is not affiliated with or endorsed by these companies.
+      </p>
+    </div>
+  </div>
+</footer>

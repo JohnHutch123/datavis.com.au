@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { appUrl } from '../lib/content';
+interface Props { app: CollectionEntry<'apps'>; section?: 'Support' | 'Privacy' | 'Delete account' }
+const { app, section } = Astro.props;
+const base = appUrl(app.id);
+const tabs = [
+  { label: 'Overview', href: base },
+  { label: 'Support', href: `${base}support/` },
+  { label: 'Privacy', href: `${base}privacy/` },
+];
+const current = Astro.url.pathname.replace(/\/?$/, '/');
+---
+<section class="hero">
+  <div class="wrap">
+    <div class="crumbs"><a href="/apps/">Apps</a> / <a href={base}>{app.data.name}</a>{section && <> / {section}</>}</div>
+    <div class="pills" style="margin-bottom:1rem">
+      {app.data.platforms.map((p) => <span class="pill">{p}</span>)}
+      {app.data.draft && <span class="pill private">draft: not published</span>}
+    </div>
+    <h1>{section ? `${app.data.name} ${section.toLowerCase()}` : app.data.name}</h1>
+    <p class="lead">{app.data.summary}</p>
+    <nav class="actions" aria-label={`${app.data.name} pages`}>
+      {tabs.map((t) => <a class={`btn ${current === t.href ? 'primary' : ''}`} href={t.href} aria-current={current === t.href ? 'page' : undefined}>{t.label}</a>)}
+    </nav>
+  </div>
+</section>

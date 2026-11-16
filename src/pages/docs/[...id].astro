@@ -1,0 +1,54 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getDocs, projectUrl, docUrl, groupUrl } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const docs = await getDocs();
+  return docs.map((doc) => ({ params: { id: doc.id }, props: { doc } }));
+}
+const { doc } = Astro.props;
+const project = await getEntry(doc.data.project);
+if (!project) throw new Error(`Doc ${doc.id} names an unknown project`);
+const group = await getEntry(project.data.group);
+const siblings = await getDocs(project.id);
+const i = siblings.findIndex((d) => d.id === doc.id);
+const prev = siblings[i - 1];
+const next = siblings[i + 1];
+const { Content, headings } = await render(doc);
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+<Base title={`${doc.data.title} — ${project.data.title}`} description={doc.data.description ?? project.data.summary}>
+  <div class="wrap with-side">
+    <article class="prose">
+      <div class="crumbs">
+        <a href="/projects/">Projects</a> / <a href={groupUrl(project.data.group.id)}>{group?.data.title}</a> /
+        <a href={projectUrl(project)}>{project.data.title}</a> / Docs
+      </div>
+      <h1>{doc.data.title}</h1>
+      {doc.data.description && <p class="lead muted">{doc.data.description}</p>}
+      <Content />
+      <hr />
+      <nav class="actions" aria-label="Previous and next page">
+        {prev && <a class="btn" href={docUrl(prev)}>← {prev.data.title}</a>}
+        {next && <a class="btn" href={docUrl(next)}>{next.data.title} →</a>}
+      </nav>
+    </article>
+    <aside class="side">
+      <div class="card">
+        <h4>{project.data.title} docs</h4>
+        <ul>
+          {siblings.map((d) => (
+            <li><a href={docUrl(d)} aria-current={d.id === doc.id ? 'page' : undefined}>{d.data.title}</a></li>
+          ))}
+        </ul>
+      </div>
+      {toc.length > 1 && (
+        <div class="card">
+          <h4>On this page</h4>
+          <ul>{toc.map((h) => <li style={h.depth === 3 ? 'padding-left:.8rem' : ''}><a href={`#${h.slug}`}>{h.text}</a></li>)}</ul>
+        </div>
+      )}
+    </aside>
+  </div>
+</Base>
