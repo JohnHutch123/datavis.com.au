@@ -13,11 +13,13 @@ export const site = {
     'Datavis Pty Ltd builds Vulkan graphics components for Delphi, MuJoCo simulation and robot skill tools, motorsport apps and data tools, and drill and blast software.',
   url: 'https://www.datavis.com.au',
   country: 'Australia',
-  // Suggested: create support@ and privacy@ aliases that forward to your inbox.
+  // Which mailbox each kind of request goes to.
   email: {
-    general: 'johnh@datavis.com.au',
-    support: 'johnh@datavis.com.au',
-    privacy: 'johnh@datavis.com.au',
+    general: 'johnh@datavis.com.au',            // general enquiries, About page
+    support: 'techsupport@datavis.com.au',      // app and package help; app store support pages
+    sales: 'marketsupport@datavis.com.au',      // licensing, PRO packages, custom work, project enquiries
+    accounts: 'accountsupport@datavis.com.au',  // invoices, payments, licence accounts
+    privacy: 'accountsupport@datavis.com.au',   // data requests, app account deletion
   },
   // Target time to reply to support requests (shown on support pages).
   supportResponse: 'four business days',

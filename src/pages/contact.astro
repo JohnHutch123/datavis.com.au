@@ -5,8 +5,9 @@ import { site } from '../site.config';
 // exploit. If you later want a web form, see README.md ("Adding a contact form").
 const topics = [
   { title: 'General enquiries', body: 'Questions about Datavis or our projects.', email: site.email.general, subject: 'Enquiry' },
-  { title: 'Licensing and PRO packages', body: 'Pricing, commercial licences and custom work.', email: site.email.general, subject: 'Licensing enquiry' },
-  { title: 'App and product support', body: 'Help with one of our apps or packages.', email: site.email.support, subject: 'Support request' },
+  { title: 'Licensing and PRO packages', body: 'Pricing, commercial licences and custom work.', email: site.email.sales, subject: 'Licensing enquiry' },
+  { title: 'Technical support', body: 'Help with one of our apps or packages.', email: site.email.support, subject: 'Support request' },
+  { title: 'Accounts and billing', body: 'Invoices, payments and licence accounts.', email: site.email.accounts, subject: 'Accounts enquiry' },
   { title: 'Privacy', body: 'Questions about your data or a data deletion request.', email: site.email.privacy, subject: 'Privacy request' },
 ];
 const mail = (e: string, s: string) => `mailto:${e}?subject=${encodeURIComponent(s)}`;

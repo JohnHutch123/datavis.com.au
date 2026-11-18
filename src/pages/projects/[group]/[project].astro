@@ -45,7 +45,7 @@ const schema = [
         {docs[0] && <a class="btn primary" href={docUrl(docs[0])}>Read the docs</a>}
         {p.data.visibility === 'public' && p.data.repo && <a class="btn" href={p.data.repo} rel="noopener">View on GitHub</a>}
         {p.data.visibility === 'private' && (
-          <a class="btn" href={`mailto:${site.email.general}?subject=${encodeURIComponent(p.data.title + ' enquiry')}`}>{p.data.enquire ?? 'Enquire about licensing'}</a>
+          <a class="btn" href={`mailto:${site.email.sales}?subject=${encodeURIComponent(p.data.title + ' enquiry')}`}>{p.data.enquire ?? 'Enquire about licensing'}</a>
         )}
         {p.data.links.map((l) => <a class="btn" href={l.url} rel="noopener">{l.label}</a>)}
       </div>

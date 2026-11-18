@@ -26,13 +26,29 @@ export function organization(): Node {
     ...(site.abn ? { taxID: `ABN ${site.abn}` } : {}),
     address: { '@type': 'PostalAddress', addressCountry: 'AU' },
     sameAs: [site.github.url],
-    contactPoint: {
-      '@type': 'ContactPoint',
-      contactType: 'customer support',
-      email: site.email.support,
-      url: abs('/support/'),
-      availableLanguage: 'English',
-    },
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        contactType: 'technical support',
+        email: site.email.support,
+        url: abs('/support/'),
+        availableLanguage: 'English',
+      },
+      {
+        '@type': 'ContactPoint',
+        contactType: 'sales',
+        email: site.email.sales,
+        url: abs('/contact/'),
+        availableLanguage: 'English',
+      },
+      {
+        '@type': 'ContactPoint',
+        contactType: 'billing support',
+        email: site.email.accounts,
+        url: abs('/contact/'),
+        availableLanguage: 'English',
+      },
+    ],
   };
 }
 

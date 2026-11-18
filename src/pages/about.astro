@@ -52,6 +52,9 @@ import { site } from '../site.config';
         {site.abn && <><dt>ABN</dt><dd>{site.abn}</dd></>}
         <dt>Location</dt><dd>{site.country}</dd>
         <dt>Email</dt><dd><a href={`mailto:${site.email.general}`}>{site.email.general}</a></dd>
+        <dt>Sales</dt><dd><a href={`mailto:${site.email.sales}`}>{site.email.sales}</a></dd>
+        <dt>Support</dt><dd><a href={`mailto:${site.email.support}`}>{site.email.support}</a></dd>
+        <dt>Accounts</dt><dd><a href={`mailto:${site.email.accounts}`}>{site.email.accounts}</a></dd>
         <dt>GitHub</dt><dd><a href={site.github.url} rel="noopener">{site.github.url.replace('https://', '')}</a></dd>
       </dl>
     </div>
