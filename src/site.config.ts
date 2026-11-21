@@ -29,6 +29,11 @@ export const site = {
   },
   // The date the general privacy policy last changed (YYYY-MM-DD).
   privacyUpdated: '2026-11-16',
+  // The date the terms of service last changed (YYYY-MM-DD).
+  termsUpdated: '2026-11-22',
+  // State or territory whose laws govern the terms, e.g. 'Queensland'.
+  // Leave '' to say "the laws in force in Australia".
+  legalState: '',
 } as const;
 
 export const nav = [
