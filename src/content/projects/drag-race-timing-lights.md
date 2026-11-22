@@ -7,6 +7,17 @@ repo: https://github.com/JohnHutch123/DragRaceTimingLights
 status: active
 tech: [delphi, fmx, ios, android, github]
 keywords: [drag racing tree app, drag racing reaction time trainer, pro tree practice, christmas tree lights simulator, drag race starting lights]
+screenshots:
+  - src: /images/screenshots/drag-tree/01-great-light.webp
+    alt: Drag Tree showing a 0.025 second great light, with two runs in the history.
+  - src: /images/screenshots/drag-tree/02-tree.webp
+    alt: A Sportsman tree counting down on the ambers, with the clutch held in and the throttle at 7000 rpm.
+  - src: /images/screenshots/drag-tree/03-pedals.webp
+    alt: Staged and waiting for the other lane, holding the clutch and brake pedals.
+  - src: /images/screenshots/drag-tree/04-red-light.webp
+    alt: A red light result of minus 0.056 seconds, logged in the history.
+  - src: /images/screenshots/drag-tree/05-settings.webp
+    alt: The settings screen with tree, lane, staging, transmission and throttle options.
 references:
   - label: Delphi FireMonkey
     url: https://www.embarcadero.com/products/delphi

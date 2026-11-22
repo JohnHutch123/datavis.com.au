@@ -42,6 +42,11 @@ const projects = defineCollection({
     references: z
       .array(z.object({ label: z.string(), url: z.string(), note: z.string().optional() }))
       .default([]),
+    // Screenshots shown in a strip on the project page (and on its apps' pages).
+    // Put the files in public/images/screenshots/<project>/; src starts with /images/.
+    screenshots: z
+      .array(z.object({ src: z.string(), alt: z.string(), width: z.number().default(540), height: z.number().default(960) }))
+      .default([]),
     // Call to action for private/commercial projects.
     enquire: z.string().optional(),
     order: z.number().default(100),

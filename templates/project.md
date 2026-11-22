@@ -13,6 +13,10 @@ links:                        # optional extra buttons
   - label: Download installer
     url: https://github.com/JohnHutch123/My_Project/releases/latest
 order: 10                     # lower numbers appear first
+# screenshots:                # optional strip at the top of the page (and on its app pages)
+#   - src: /images/screenshots/my-project/01-main.webp   # files go in public/images/screenshots/
+#     alt: What the screenshot shows, for screen readers and search engines.
+#     # width: 540  height: 960   # pixel size, if not 540 x 960
 # enquire: Ask about a licence  # button text for private projects
 # draft: true
 ---

@@ -1,0 +1,35 @@
+---
+// A horizontal strip of screenshots that scrolls sideways on narrow screens.
+interface Props {
+  items: { src: string; alt: string; width: number; height: number }[];
+  heading?: string;
+}
+const { items, heading = 'Screenshots' } = Astro.props;
+---
+{items.length > 0 && (
+  <section class="shots" aria-label={heading}>
+    <h2>{heading}</h2>
+    <ul>
+      {items.map((s, i) => (
+        <li>
+          <a href={s.src} title="Open full size">
+            <img src={s.src} alt={s.alt} width={s.width} height={s.height} loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<style>
+  .shots { margin: 0 0 2rem; }
+  .shots ul {
+    list-style: none; margin: 0; padding: 0 0 0.75rem;
+    display: grid; grid-auto-flow: column; grid-auto-columns: minmax(170px, 210px); gap: 0.9rem;
+    overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+  }
+  .shots li { scroll-snap-align: start; margin: 0; }
+  .shots a { display: block; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+  .shots a:hover { border-color: var(--accent); }
+  .shots img { display: block; width: 100%; height: auto; border: 0; border-radius: 0; }
+</style>

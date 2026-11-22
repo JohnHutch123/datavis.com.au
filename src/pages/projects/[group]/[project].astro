@@ -2,6 +2,7 @@
 import { getEntry, render } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import TechBadges from '../../../components/TechBadges.astro';
+import Screenshots from '../../../components/Screenshots.astro';
 import { site } from '../../../site.config';
 import { project as schemaProject, breadcrumbs } from '../../../lib/schema';
 import { getProjects, getDocs, getApps, groupUrl, projectUrl, docUrl, appUrl, statusLabel } from '../../../lib/content';
@@ -56,6 +57,7 @@ const schema = [
       {p.data.status === 'wip' && (
         <p class="notice"><strong>Work in progress.</strong> This project is under active development: features, names and file formats may change, and some parts described here are not finished yet.</p>
       )}
+      <Screenshots items={p.data.screenshots} />
       <Content />
     </article>
     <aside class="side">
